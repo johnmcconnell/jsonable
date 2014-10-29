@@ -20,7 +20,7 @@ public class <%= class_name @model %> {
        <%= "  #{field_name field}.add(new #{java_type field.type}().unmarshal(#{field_name field}Object));" %>
        <%= "}" %>
     <% elsif field.model? %>
-      <%= "#{field_def field} = new #{java_type field.type}().unmarshal(object.#{json_field_call_getter field});" %>
+      <%= "#{field_def field} = new #{java_type field.type}().unmarshal(object.getJSONObject(#{field.name}));" %>
     <% else %>
       <%= "#{field_def field} = object.#{json_field_call_getter field};" %>
     <% end %>

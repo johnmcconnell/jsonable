@@ -19,7 +19,7 @@ public class Test {
     
   
     
-      Question question = new Question().unmarshal(object.getQuestion("question"));
+      Question question = new Question().unmarshal(object.getJSONObject(question));
     
   
     return new Test(text, question);
