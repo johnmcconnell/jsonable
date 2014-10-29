@@ -28,7 +28,7 @@ class Model
   end
 
   def self.object_of(model_name, schemas)
-    model_name
+    "Model[#{model_name}]"
   end
 
   def initialize(params)

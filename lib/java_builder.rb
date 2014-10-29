@@ -21,6 +21,8 @@ class JavaBuilder
            "      #{field_name field}Array.put(#{field_name_singular field}.toJSONObject());\n" +
         "    }\n    " +
         yield + "put(\"#{field.name}\", #{field_name field}Array);"
+    elsif field.model?
+      yield + "put(\"#{field.name}\", #{field_name field}.toJSONObject());"
     else
       yield + "put(\"#{field.name}\", #{field_name field});"
     end
