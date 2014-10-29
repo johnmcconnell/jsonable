@@ -1,6 +1,7 @@
 package com.bareknucklecoding.plato.json_models;
 
 import java.util.List;
+import java.util.ArrayList;
 
 import org.json.JSONObject;
 import org.json.JSONException;
@@ -12,8 +13,10 @@ public class <%= class_name @model %> {
   public static <%= class_name @model %> unmarshal(JSONObject object) throws JSONException {
   <% @model.fields.each do |field| %>
     <% if field.array? %>
-       <%= "#{field_def field} = new #{field_type field}();" %>
-       <%= "for(JSONObject #{field_name field}Object : object.getJSONArray(\"#{field.name}\")) {" %>
+       <%= "#{field_def field} = new Array#{field_type field}();" %>
+       <%= "for(int x = 0; x < object.getJSONArray(\"#{field.name}\").length(); x++) {" %>
+       <%= "JSONObject #{field_name field}Object = object.getJSONArray(\"#{field.name}\")" %>
+       <%= "  .getJSONObject(x);" %>
        <%= "  #{field_name field}.add(#{model_type_of_array field.type}.unmarshal(#{field_name field}Object));" %>
        <%= "}" %>
     <% else %>

@@ -1,6 +1,7 @@
 package com.bareknucklecoding.plato.json_models;
 
 import java.util.List;
+import java.util.ArrayList;
 
 import org.json.JSONObject;
 import org.json.JSONException;
@@ -24,8 +25,10 @@ public class Question {
     
   
     
-       List<Answer> answers = new List<Answer>();
-       for(JSONObject answersObject : object.getJSONArray("answers")) {
+       List<Answer> answers = new ArrayList<Answer>();
+       for(int x = 0; x < object.getJSONArray("answers").length(); x++) {
+       JSONObject answersObject = object.getJSONArray("answers")
+         .getJSONObject(x);
          answers.add(Answer.unmarshal(answersObject));
        }
     

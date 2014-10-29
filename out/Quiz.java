@@ -1,6 +1,7 @@
 package com.bareknucklecoding.plato.json_models;
 
 import java.util.List;
+import java.util.ArrayList;
 
 import org.json.JSONObject;
 import org.json.JSONException;
@@ -14,8 +15,6 @@ public class Quiz {
     private String level;
   
     private String topic;
-  
-    private List<Answer> answers;
   
     private List<Question> questions;
   
@@ -38,20 +37,15 @@ public class Quiz {
     
   
     
-       List<Answer> answers = new List<Answer>();
-       for(JSONObject answersObject : object.getJSONArray("answers")) {
-         answers.add(Answer.unmarshal(answersObject));
-       }
-    
-  
-    
-       List<Question> questions = new List<Question>();
-       for(JSONObject questionsObject : object.getJSONArray("questions")) {
+       List<Question> questions = new ArrayList<Question>();
+       for(int x = 0; x < object.getJSONArray("questions").length(); x++) {
+       JSONObject questionsObject = object.getJSONArray("questions")
+         .getJSONObject(x);
          questions.add(Question.unmarshal(questionsObject));
        }
     
   
-    return new Quiz(id, subject, level, topic, answers, questions);
+    return new Quiz(id, subject, level, topic, questions);
   }
 
   public JSONObject toJSONObject() throws JSONException {
@@ -65,12 +59,6 @@ public class Quiz {
   
     object.put("topic", topic);
   
-    JSONArray answersArray = new JSONArray();
-    for (Answer answer : answers) {
-      answersArray.put(answer.toJSONObject());
-    }
-    object.put("answers", answersArray);
-  
     JSONArray questionsArray = new JSONArray();
     for (Question question : questions) {
       questionsArray.put(question.toJSONObject());
@@ -80,7 +68,7 @@ public class Quiz {
     return object;
   }
 
-  public Quiz(Integer id, String subject, String level, String topic, List<Answer> answers, List<Question> questions){
+  public Quiz(Integer id, String subject, String level, String topic, List<Question> questions){
   
     this.id = id;
   
@@ -89,8 +77,6 @@ public class Quiz {
     this.level = level;
   
     this.topic = topic;
-  
-    this.answers = answers;
   
     this.questions = questions;
   
@@ -111,10 +97,6 @@ public class Quiz {
   
   public String getTopic() {
     return topic;
-  }
-  
-  public List<Answer> getAnswers() {
-    return answers;
   }
   
   public List<Question> getQuestions() {
