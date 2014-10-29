@@ -18,7 +18,7 @@ public class Quiz {
   
     private List<Question> questions;
   
-  public static Quiz unmarshal(JSONObject object) throws JSONException {
+  public Quiz unmarshal(JSONObject object) throws JSONException {
   
     
       Integer id = object.getInteger("id");
@@ -41,7 +41,7 @@ public class Quiz {
        for(int x = 0; x < object.getJSONArray("questions").length(); x++) {
        JSONObject questionsObject = object.getJSONArray("questions")
          .getJSONObject(x);
-         questions.add(Question.unmarshal(questionsObject));
+         questions.add(new Question().unmarshal(questionsObject));
        }
     
   
@@ -66,6 +66,9 @@ public class Quiz {
     object.put("questions", questionsArray);
   
     return object;
+  }
+
+  public Quiz(){
   }
 
   public Quiz(Integer id, String subject, String level, String topic, List<Question> questions){

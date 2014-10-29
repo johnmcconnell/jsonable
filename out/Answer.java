@@ -12,7 +12,7 @@ public class Answer {
   
     private Boolean valid;
   
-  public static Answer unmarshal(JSONObject object) throws JSONException {
+  public Answer unmarshal(JSONObject object) throws JSONException {
   
     
       String text = object.getString("text");
@@ -33,6 +33,9 @@ public class Answer {
     object.put("valid", valid);
   
     return object;
+  }
+
+  public Answer(){
   }
 
   public Answer(String text, Boolean valid){

@@ -10,14 +10,14 @@ public class <%= class_name @model %> {
   <% @model.fields.each do |field| %>
     <%= "private #{field_def field};" %>
   <% end %>
-  public static <%= class_name @model %> unmarshal(JSONObject object) throws JSONException {
+  public <%= class_name @model %> unmarshal(JSONObject object) throws JSONException {
   <% @model.fields.each do |field| %>
     <% if field.array? %>
        <%= "#{field_def field} = new Array#{field_type field}();" %>
        <%= "for(int x = 0; x < object.getJSONArray(\"#{field.name}\").length(); x++) {" %>
        <%= "JSONObject #{field_name field}Object = object.getJSONArray(\"#{field.name}\")" %>
        <%= "  .getJSONObject(x);" %>
-       <%= "  #{field_name field}.add(#{model_type_of_array field.type}.unmarshal(#{field_name field}Object));" %>
+       <%= "  #{field_name field}.add(new #{model_type_of_array field.type}().unmarshal(#{field_name field}Object));" %>
        <%= "}" %>
     <% else %>
       <%= "#{field_def field} = object.#{json_field_call_getter field};" %>
@@ -32,6 +32,9 @@ public class <%= class_name @model %> {
     <%= json_field_call_setter(field) do "object." end %>
   <% end %>
     return object;
+  }
+
+  public <%= class_name @model %>(){
   }
 
   public <%= class_name @model %>(<%= constructor_declaration_args @model.fields %>){

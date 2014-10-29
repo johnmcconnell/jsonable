@@ -14,7 +14,7 @@ public class Question {
   
     private List<Answer> answers;
   
-  public static Question unmarshal(JSONObject object) throws JSONException {
+  public Question unmarshal(JSONObject object) throws JSONException {
   
     
       String type = object.getString("type");
@@ -29,7 +29,7 @@ public class Question {
        for(int x = 0; x < object.getJSONArray("answers").length(); x++) {
        JSONObject answersObject = object.getJSONArray("answers")
          .getJSONObject(x);
-         answers.add(Answer.unmarshal(answersObject));
+         answers.add(new Answer().unmarshal(answersObject));
        }
     
   
@@ -50,6 +50,9 @@ public class Question {
     object.put("answers", answersArray);
   
     return object;
+  }
+
+  public Question(){
   }
 
   public Question(String type, String text, List<Answer> answers){
