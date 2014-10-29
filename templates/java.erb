@@ -1,0 +1,35 @@
+package "com.example.foo"
+
+import java.util.List;
+
+public class <%= class_name @model %> {
+  <% @model.fields.each do |field| %>
+    <%= "private #{field_def field};" %>
+  <% end %>
+  public static unmarshal(JSONObject object) {
+  <% @model.fields.each do |field| %>
+    <%= "#{field_def field} = object.#{json_field_call_getter field};" %>
+  <% end %>
+    return new <%= class_name @model%>(<%= constructor_call_args @model.fields %>);
+  }
+
+  public toJSONObject() {
+    JSONObject object = new JSONObject();
+  <% @model.fields.each do |field| %>
+    <%= "object.#{json_field_call_setter field};" %>
+  <% end %>
+    return object;
+  }
+
+  public <%= class_name @model %>(<%= constructor_declaration_args @model.fields %>){
+  <% @model.fields.each do |field| %>
+    <%= constructor_set field %>
+  <% end %>
+  }
+
+  <% @model.fields.each do |field| %>
+  public <%= "#{field_type field} #{getter_name field.name}" %>() {
+    return <%= field_name field %>;
+  }
+  <% end %>
+}

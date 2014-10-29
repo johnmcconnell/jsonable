@@ -8,18 +8,19 @@ options = { output: '.' }
 OptionParser.new do |opts|
   opts.banner = "Usage: jsonable [config-file]"
 
-  opts.on("-o", "--out", "output directory") do |path|
+  opts.on("-o PATH", "--out PATH", "output directory") do |path|
     options[:output] = path
   end
 end.parse!
 
-config_path = ARGV.shift
-puts "using config in '#{config_path}'..."
+schema_dir = ARGV.shift
+puts "using schemas in '#{schema_dir}'..."
 
-config = JSONable.parse_config(File.read(config_path))
-puts "found '#{config.models.size}' models in config..."
+schema_paths = Dir["#{schema_dir}/*.json"]
+schemas = JSONable.parse_schemas(schema_paths)
+puts "found '#{schemas.size}' schemas..."
 
-models = JSONable.build_models(config)
+models = JSONable.build_models(schemas)
 puts "created '#{models.size}' models..."
 
-JSONable.create_source for: models, into: options[:output]
+JSONable.create_source models: models, into: options[:output]

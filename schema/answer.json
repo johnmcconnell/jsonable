@@ -2,7 +2,7 @@
   "name": "answer",
   "fields": {
     "text": {
-      "type": "String",
+      "type": "String"
     },
     "valid": {
       "type": "Boolean"
