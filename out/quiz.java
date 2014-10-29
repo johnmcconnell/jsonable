@@ -14,7 +14,7 @@ public class Quiz {
   
     private Question questions;
   
-  public static unmarshal(JSONObject object) {
+  public static Quiz unmarshal(JSONObject object) {
   
     
       Integer id = object.getInteger("id");
@@ -39,18 +39,18 @@ public class Quiz {
     return new Quiz(id, subject, level, topic, questions);
   }
 
-  public toJSONObject() {
+  public JSONObject toJSONObject() {
     JSONObject object = new JSONObject();
   
-    object.put("id", id)
+    object.put("id", id);
   
-    object.put("subject", subject)
+    object.put("subject", subject);
   
-    object.put("level", level)
+    object.put("level", level);
   
-    object.put("topic", topic)
+    object.put("topic", topic);
   
-    object.put("questions", questions)
+    object.put("questions", questions);
   
     return object;
   }

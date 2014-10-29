@@ -6,7 +6,7 @@ public class <%= class_name @model %> {
   <% @model.fields.each do |field| %>
     <%= "private #{field_def field};" %>
   <% end %>
-  public static unmarshal(JSONObject object) {
+  public static <%= class_name @model %> unmarshal(JSONObject object) {
   <% @model.fields.each do |field| %>
     <% if field.array? %>
        <%= "#{field_def field} = new #{field_type field}();" %>
@@ -20,7 +20,7 @@ public class <%= class_name @model %> {
     return new <%= class_name @model%>(<%= constructor_call_args @model.fields %>);
   }
 
-  public toJSONObject() {
+  public JSONObject toJSONObject() {
     JSONObject object = new JSONObject();
   <% @model.fields.each do |field| %>
     <%= json_field_call_setter(field) do "object." end %>

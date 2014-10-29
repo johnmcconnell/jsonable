@@ -10,7 +10,7 @@ public class Question {
   
     private List<Answer> answers;
   
-  public static unmarshal(JSONObject object) {
+  public static Question unmarshal(JSONObject object) {
   
     
       String type = object.getString("type");
@@ -30,18 +30,18 @@ public class Question {
     return new Question(type, text, answers);
   }
 
-  public toJSONObject() {
+  public JSONObject toJSONObject() {
     JSONObject object = new JSONObject();
   
-    object.put("type", type)
+    object.put("type", type);
   
-    object.put("text", text)
+    object.put("text", text);
   
     JSONArray answersArray = new JSONArray();
     for (Answer answer : answers) {
       answersArray.put(answer.toJSONObject());
     }
-    object.put("answers", answersArray)
+    object.put("answers", answersArray);
   
     return object;
   }

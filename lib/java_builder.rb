@@ -20,9 +20,9 @@ class JavaBuilder
         "    for (#{model_type_of_array field.type} #{field_name_singular field} : #{field_name field}) {\n" +
            "      #{field_name field}Array.put(#{field_name_singular field}.toJSONObject());\n" +
         "    }\n    " +
-        yield + "put(\"#{field.name}\", #{field_name field}Array)"
+        yield + "put(\"#{field.name}\", #{field_name field}Array);"
     else
-      yield + "put(\"#{field.name}\", #{field_name field})"
+      yield + "put(\"#{field.name}\", #{field_name field});"
     end
   end
 

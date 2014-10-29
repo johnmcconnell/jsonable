@@ -8,7 +8,7 @@ public class Answer {
   
     private Boolean valid;
   
-  public static unmarshal(JSONObject object) {
+  public static Answer unmarshal(JSONObject object) {
   
     
       String text = object.getString("text");
@@ -21,12 +21,12 @@ public class Answer {
     return new Answer(text, valid);
   }
 
-  public toJSONObject() {
+  public JSONObject toJSONObject() {
     JSONObject object = new JSONObject();
   
-    object.put("text", text)
+    object.put("text", text);
   
-    object.put("valid", valid)
+    object.put("valid", valid);
   
     return object;
   }
