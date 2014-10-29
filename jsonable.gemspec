@@ -5,11 +5,11 @@ require 'jsonable/version'
 
 Gem::Specification.new do |spec|
   spec.name          = "jsonable"
-  spec.version       = Jsonable::VERSION
-  spec.authors       = ["TODO: Write your name"]
-  spec.email         = ["TODO: Write your email address"]
-  spec.summary       = %q{TODO: Write a short summary. Required.}
-  spec.description   = %q{TODO: Write a longer description. Optional.}
+  spec.version       = JSONable::VERSION
+  spec.authors       = ["John McConnell"]
+  spec.email         = ["johnnyillinois@gmail.com"]
+  spec.summary       = %q{Used for code generatation.}
+  spec.description   = %q{Run it on a JSON schema to creat POJOs.}
   spec.homepage      = ""
   spec.license       = "MIT"
 
