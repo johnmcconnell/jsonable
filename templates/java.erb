@@ -17,8 +17,10 @@ public class <%= class_name @model %> {
        <%= "for(int x = 0; x < object.getJSONArray(\"#{field.name}\").length(); x++) {" %>
        <%= "JSONObject #{field_name field}Object = object.getJSONArray(\"#{field.name}\")" %>
        <%= "  .getJSONObject(x);" %>
-       <%= "  #{field_name field}.add(new #{model_type_of_array field.type}().unmarshal(#{field_name field}Object));" %>
+       <%= "  #{field_name field}.add(new #{java_type field.type}().unmarshal(#{field_name field}Object));" %>
        <%= "}" %>
+    <% elsif field.model? %>
+      <%= "#{field_def field} = new #{java_type field.type}().unmarshal(object.#{json_field_call_getter field});" %>
     <% else %>
       <%= "#{field_def field} = object.#{json_field_call_getter field};" %>
     <% end %>

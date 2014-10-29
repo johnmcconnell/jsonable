@@ -63,6 +63,8 @@ class JavaBuilder
   def java_type(type_name)
     if type_name =~ /^Array\[.*\]$/
       "List<#{model_type_of_array type_name}>"
+    elsif type_name =~ /^Model\[.*\]$/
+      camel_case /^Model\[(.*)\]$/.match(type_name)[1]
     else
       camel_case type_name
     end

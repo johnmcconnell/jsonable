@@ -29,7 +29,7 @@ public class Question {
        for(int x = 0; x < object.getJSONArray("answers").length(); x++) {
        JSONObject answersObject = object.getJSONArray("answers")
          .getJSONObject(x);
-         answers.add(new Answer().unmarshal(answersObject));
+         answers.add(new List<Answer>().unmarshal(answersObject));
        }
     
   

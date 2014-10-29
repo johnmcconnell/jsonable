@@ -9,4 +9,8 @@ class Field
   def array?
     type =~ /^Array\[.*\]$/
   end
+
+  def model?
+    type =~ /^Model\[.*\]$/
+  end
 end

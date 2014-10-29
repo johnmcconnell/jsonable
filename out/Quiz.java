@@ -41,7 +41,7 @@ public class Quiz {
        for(int x = 0; x < object.getJSONArray("questions").length(); x++) {
        JSONObject questionsObject = object.getJSONArray("questions")
          .getJSONObject(x);
-         questions.add(new Question().unmarshal(questionsObject));
+         questions.add(new List<Question>().unmarshal(questionsObject));
        }
     
   
