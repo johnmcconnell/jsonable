@@ -1,6 +1,9 @@
-package "com.example.foo"
+package com.bareknucklecoding.plato.json_models;
 
 import java.util.List;
+
+import org.json.JSONObject;
+import org.json.JSONException;
 
 public class Question {
   
@@ -10,7 +13,7 @@ public class Question {
   
     private List<Answer> answers;
   
-  public static Question unmarshal(JSONObject object) {
+  public static Question unmarshal(JSONObject object) throws JSONException {
   
     
       String type = object.getString("type");
@@ -30,7 +33,7 @@ public class Question {
     return new Question(type, text, answers);
   }
 
-  public JSONObject toJSONObject() {
+  public JSONObject toJSONObject() throws JSONException {
     JSONObject object = new JSONObject();
   
     object.put("type", type);

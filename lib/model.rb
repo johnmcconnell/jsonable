@@ -19,6 +19,7 @@ class Model
     type = opts['type'] ||
       array_of(opts['references_to'], schemas) ||
       object_of(opts['reference_to'], schemas)
+    puts "#{name}, #{type}"
     Field.new(name: name, type: type)
   end
 
