@@ -8,7 +8,14 @@ public class <%= class_name @model %> {
   <% end %>
   public static unmarshal(JSONObject object) {
   <% @model.fields.each do |field| %>
-    <%= "#{field_def field} = object.#{json_field_call_getter field};" %>
+    <% if field.array? %>
+       <%= "#{field_def field} = new #{field_type field}();" %>
+       <%= "for(JSONObject #{field_name field}Object : object.getJSONArray(\"#{field.name}\")) {" %>
+       <%= "  #{field_name field}.add(#{model_type_of_array field.type}.unmarshal(#{field_name field}Object));" %>
+       <%= "}" %>
+    <% else %>
+      <%= "#{field_def field} = object.#{json_field_call_getter field};" %>
+    <% end %>
   <% end %>
     return new <%= class_name @model%>(<%= constructor_call_args @model.fields %>);
   }
@@ -16,7 +23,7 @@ public class <%= class_name @model %> {
   public toJSONObject() {
     JSONObject object = new JSONObject();
   <% @model.fields.each do |field| %>
-    <%= "object.#{json_field_call_setter field};" %>
+    <%= json_field_call_setter(field) do "object." end %>
   <% end %>
     return object;
   }

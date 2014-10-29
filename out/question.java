@@ -12,11 +12,20 @@ public class Question {
   
   public static unmarshal(JSONObject object) {
   
-    String type = object.getString("type");
+    
+      String type = object.getString("type");
+    
   
-    String text = object.getString("text");
+    
+      String text = object.getString("text");
+    
   
-    List<Answer> answers = object.getList<Answer>("answers");
+    
+       List<Answer> answers = new List<Answer>();
+       for(JSONObject answersObject : object.getJSONArray("answers")) {
+         answers.add(Answer.unmarshal(answersObject));
+       }
+    
   
     return new Question(type, text, answers);
   }
@@ -24,11 +33,15 @@ public class Question {
   public toJSONObject() {
     JSONObject object = new JSONObject();
   
-    object.setString("type");
+    object.put("type", type)
   
-    object.setString("text");
+    object.put("text", text)
   
-    object.setList<Answer>("answers");
+    JSONArray answersArray = new JSONArray();
+    for (Answer answer : answers) {
+      answersArray.put(answer.toJSONObject());
+    }
+    object.put("answers", answersArray)
   
     return object;
   }

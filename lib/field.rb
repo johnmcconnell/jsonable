@@ -5,4 +5,8 @@ class Field
     @name = params[:name]
     @type = params[:type]
   end
+
+  def array?
+    type =~ /^Array\[.*\]$/
+  end
 end

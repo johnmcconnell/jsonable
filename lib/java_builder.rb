@@ -15,7 +15,15 @@ class JavaBuilder
     fields.map { |f| field_name f }.join(', ')
   end
   def json_field_call_setter(field)
-    "set#{field_type field}(\"#{field_name field}\")"
+    if field.array?
+      "JSONArray #{field_name field}Array = new JSONArray();\n" +
+        "    for (#{model_type_of_array field.type} #{field_name_singular field} : #{field_name field}) {\n" +
+           "      #{field_name field}Array.put(#{field_name_singular field}.toJSONObject());\n" +
+        "    }\n    " +
+        yield + "put(\"#{field.name}\", #{field_name field}Array)"
+    else
+      yield + "put(\"#{field.name}\", #{field_name field})"
+    end
   end
 
   def json_field_call_getter(field)
@@ -38,14 +46,21 @@ class JavaBuilder
     camel_back field.name
   end
 
+  def field_name_singular(field)
+    field_name(field)[0..-2]
+  end
+
   def field_type(field)
     java_type(field.type)
   end
 
+  def model_type_of_array(type_name)
+    java_type /^Array\[(.*)\]$/.match(type_name)[1]
+  end
+
   def java_type(type_name)
     if type_name =~ /^Array\[.*\]$/
-      name = /^Array\[(.*)\]$/.match(type_name)[1]
-      "List<#{java_type name}>"
+      "List<#{model_type_of_array type_name}>"
     else
       camel_case type_name
     end

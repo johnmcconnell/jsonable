@@ -16,15 +16,25 @@ public class Quiz {
   
   public static unmarshal(JSONObject object) {
   
-    Integer id = object.getInteger("id");
+    
+      Integer id = object.getInteger("id");
+    
   
-    String subject = object.getString("subject");
+    
+      String subject = object.getString("subject");
+    
   
-    String level = object.getString("level");
+    
+      String level = object.getString("level");
+    
   
-    String topic = object.getString("topic");
+    
+      String topic = object.getString("topic");
+    
   
-    Question questions = object.getQuestion("questions");
+    
+      Question questions = object.getQuestion("questions");
+    
   
     return new Quiz(id, subject, level, topic, questions);
   }
@@ -32,15 +42,15 @@ public class Quiz {
   public toJSONObject() {
     JSONObject object = new JSONObject();
   
-    object.setInteger("id");
+    object.put("id", id)
   
-    object.setString("subject");
+    object.put("subject", subject)
   
-    object.setString("level");
+    object.put("level", level)
   
-    object.setString("topic");
+    object.put("topic", topic)
   
-    object.setQuestion("questions");
+    object.put("questions", questions)
   
     return object;
   }

@@ -10,9 +10,13 @@ public class Answer {
   
   public static unmarshal(JSONObject object) {
   
-    String text = object.getString("text");
+    
+      String text = object.getString("text");
+    
   
-    Boolean valid = object.getBoolean("valid");
+    
+      Boolean valid = object.getBoolean("valid");
+    
   
     return new Answer(text, valid);
   }
@@ -20,9 +24,9 @@ public class Answer {
   public toJSONObject() {
     JSONObject object = new JSONObject();
   
-    object.setString("text");
+    object.put("text", text)
   
-    object.setBoolean("valid");
+    object.put("valid", valid)
   
     return object;
   }
