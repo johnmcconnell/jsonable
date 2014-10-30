@@ -41,7 +41,7 @@ public class JSONCar {
       for(int x = 0; x < object.getJSONArray("wheels").length(); x++) {
         JSONObject wheelsObject = object.getJSONArray("wheels")
           .getJSONObject(x);
-          wheels.add(new Wheel().unmarshal(wheelsObject));
+        wheels.add(new Wheel().unmarshal(wheelsObject));
       }
       return new JSONCar(color, manufacturer, wheels);
     }
