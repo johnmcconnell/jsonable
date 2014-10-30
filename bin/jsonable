@@ -6,12 +6,19 @@ require 'optparse'
 options = { output: '.' }
 
 OptionParser.new do |opts|
-  opts.banner = "Usage: jsonable [config-file]"
+  opts.banner = "Usage: jsonable [schema-directory]"
 
-  opts.on("-o PATH", "--out PATH", "output directory") do |path|
+  opts.on('-o PATH', '--out PATH', 'directory to output models') do |path|
     options[:output] = path
   end
+
+  opts.on('-V', '--version', 'print version number') do
+    options[:print_version] = true
+  end
 end.parse!
+
+puts "using jsonable v#{JSONable::VERSION}"
+exit if options[:print_version]
 
 schema_dir = ARGV.shift
 puts "using schemas in '#{schema_dir}'..."

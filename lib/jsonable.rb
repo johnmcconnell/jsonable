@@ -18,7 +18,7 @@ module JSONable
   def self.create_source(opts)
     out_dir = opts[:into]
     opts[:models].each do |model|
-      file_path = File.join(out_dir, "#{model.name.capitalize}.java")
+      file_path = File.join(out_dir, "JSON#{model.name.capitalize}.java")
       write_model(file_path, model)
     end
   end

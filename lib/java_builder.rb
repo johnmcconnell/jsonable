@@ -8,7 +8,7 @@ class JavaBuilder
   end
 
   def class_name(model)
-    camel_case model.name
+    "JSON#{camel_case model.name}"
   end
 
   def constructor_call_args(fields)

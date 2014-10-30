@@ -4,9 +4,10 @@ import java.util.List;
 import java.util.ArrayList;
 
 import org.json.JSONObject;
+import org.json.JSONArray;
 import org.json.JSONException;
 
-public class Quiz {
+public class JSONQuiz {
   
     private Integer id;
   
@@ -18,7 +19,7 @@ public class Quiz {
   
     private List<Question> questions;
   
-  public Quiz unmarshal(JSONObject object) throws JSONException {
+  public JSONQuiz unmarshal(JSONObject object) throws JSONException {
   
     
       Integer id = object.getInteger("id");
@@ -41,11 +42,11 @@ public class Quiz {
        for(int x = 0; x < object.getJSONArray("questions").length(); x++) {
        JSONObject questionsObject = object.getJSONArray("questions")
          .getJSONObject(x);
-         questions.add(new List<Question>().unmarshal(questionsObject));
+         questions.add(new Question().unmarshal(questionsObject));
        }
     
   
-    return new Quiz(id, subject, level, topic, questions);
+    return new JSONQuiz(id, subject, level, topic, questions);
   }
 
   public JSONObject toJSONObject() throws JSONException {
@@ -68,10 +69,10 @@ public class Quiz {
     return object;
   }
 
-  public Quiz(){
+  public JSONQuiz(){
   }
 
-  public Quiz(Integer id, String subject, String level, String topic, List<Question> questions){
+  public JSONQuiz(Integer id, String subject, String level, String topic, List<Question> questions){
   
     this.id = id;
   

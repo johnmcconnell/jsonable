@@ -4,9 +4,10 @@ import java.util.List;
 import java.util.ArrayList;
 
 import org.json.JSONObject;
+import org.json.JSONArray;
 import org.json.JSONException;
 
-public class Question {
+public class JSONQuestion {
   
     private String type;
   
@@ -14,7 +15,7 @@ public class Question {
   
     private List<Answer> answers;
   
-  public Question unmarshal(JSONObject object) throws JSONException {
+  public JSONQuestion unmarshal(JSONObject object) throws JSONException {
   
     
       String type = object.getString("type");
@@ -29,11 +30,11 @@ public class Question {
        for(int x = 0; x < object.getJSONArray("answers").length(); x++) {
        JSONObject answersObject = object.getJSONArray("answers")
          .getJSONObject(x);
-         answers.add(new List<Answer>().unmarshal(answersObject));
+         answers.add(new Answer().unmarshal(answersObject));
        }
     
   
-    return new Question(type, text, answers);
+    return new JSONQuestion(type, text, answers);
   }
 
   public JSONObject toJSONObject() throws JSONException {
@@ -52,10 +53,10 @@ public class Question {
     return object;
   }
 
-  public Question(){
+  public JSONQuestion(){
   }
 
-  public Question(String type, String text, List<Answer> answers){
+  public JSONQuestion(String type, String text, List<Answer> answers){
   
     this.type = type;
   

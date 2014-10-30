@@ -4,15 +4,16 @@ import java.util.List;
 import java.util.ArrayList;
 
 import org.json.JSONObject;
+import org.json.JSONArray;
 import org.json.JSONException;
 
-public class Test {
+public class JSONTest {
   
     private String text;
   
     private Question question;
   
-  public Test unmarshal(JSONObject object) throws JSONException {
+  public JSONTest unmarshal(JSONObject object) throws JSONException {
   
     
       String text = object.getString("text");
@@ -22,7 +23,7 @@ public class Test {
       Question question = new Question().unmarshal(object.getJSONObject(question));
     
   
-    return new Test(text, question);
+    return new JSONTest(text, question);
   }
 
   public JSONObject toJSONObject() throws JSONException {
@@ -35,10 +36,10 @@ public class Test {
     return object;
   }
 
-  public Test(){
+  public JSONTest(){
   }
 
-  public Test(String text, Question question){
+  public JSONTest(String text, Question question){
   
     this.text = text;
   
