@@ -1,19 +1,42 @@
 require 'erb'
 
 class JavaBuilder
+  attr_reader :model
   def render(model)
     @model = model
-    template = File.read(File.join('templates', 'java.erb'))
-    ERB.new(template).result get_binding
+    template = File.read(
+      File.expand_path(File.join('..', '..', 'templates', 'java.erb'), __FILE__)
+    )
+    ERB.new(template, nil, '-').result get_binding
   end
 
-  def class_name(model)
+  def class_name
     "JSON#{camel_case model.name}"
+  end
+
+  def fields
+    model.fields.map do |field|
+      { type: field_type(field),
+        name: field_name(field) }
+    end
+  end
+
+  def getters
+    model.fields.map do |field|
+      { method_name: getter_name(field),
+        method_type: field_type(field),
+        return_variable: "this.#{field_name field}"}
+    end
+  end
+
+  def constructor_arguments
+    fields.map { |f| "#{f[:type]} #{f[:name]}" }.join(', ')
   end
 
   def constructor_call_args(fields)
     fields.map { |f| field_name f }.join(', ')
   end
+
   def json_field_call_setter(field)
     if field.array?
       "JSONArray #{field_name field}Array = new JSONArray();\n" +
@@ -70,8 +93,8 @@ class JavaBuilder
     end
   end
 
-  def getter_name(name)
-    "get#{camel_case name}"
+  def getter_name(field)
+    "get#{camel_case field.name}"
   end
 
   def camel_case(text)

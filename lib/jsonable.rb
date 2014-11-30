@@ -30,6 +30,6 @@ module JSONable
   end
 
   def self.render(model)
-    JavaBuilder.new.render(model)
+    JavaBuilder.new.render model
   end
 end
