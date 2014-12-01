@@ -25,7 +25,7 @@ class JavaBuilder
     model.fields.map do |field|
       { method_name: getter_name(field),
         method_type: field_type(field),
-        return_variable: "this.#{field_name field}"}
+        return_variable: field_name(field) }
     end
   end
 
