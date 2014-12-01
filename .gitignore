@@ -22,6 +22,7 @@ mkmf.log
 /test/tmp/
 /test/version_tmp/
 /tmp/
+/out/
 
 ## Specific to RubyMotion:
 .dat*
